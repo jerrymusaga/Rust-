@@ -1,26 +1,32 @@
-use std::io;
-
-fn greatest_common_divisor(mut num1: u32, mut num2: u32)->u32{
-    
-    assert!(num1 != 0 && num2 != 0);
-    while num1 != 0 {
-        if num1 < num2 {
-            let another_num = num1;
-            num1 = num2;
-            num2 = another_num;
-        }
-        num1 = num1 % num2;
+fn print_elements(){
+    let mut elements = vec![1,5,6,11,3,7]; // elements are allocated on heap
+    for i in 6..20{
+        let next = elements[i-3] + elements[i-2];
+        elements.push(next);
     }
-    num2
+    println!("Elements(1..20) = {:?}", elements); 
+} //elements vector goes out of scope and gets dropped here
+
+struct Person {
+    name: String,
+    skill: String,
+    age: u32
 }
 
-fn main() {
-    let mut num1 = String::new();
-    io::stdin().read_line(&mut num1).expect("failed to read line");
-    let num1: u32 = num1.trim().parse().expect("Input an Integer");
-    let mut num2 = String::new();
-    io::stdin().read_line(&mut num2).expect("failed to read line");
-    let num2: u32 = num2.trim().parse().expect("Input an Integer");
-    let result = greatest_common_divisor(num1,num2);
-    println!("Greatest common divisor of {} and {} is {}:",num1,num2,result);
+fn main(){
+    let mut programmers = Vec::new();
+    programmers.push(Person {
+        name: "Saman".to_string(),
+        skill: "Rust".to_string(),
+        age: 25
+    });
+    programmers.push(Person {
+        name: "Arsmith".to_string(),
+        skill: "C++".to_string(),
+        age: 28
+    });
+    for programmer in &programmers{
+        println!("{} codes in {} at {}",programmer.name,programmer.skill,programmer.age);
+    }
+    print_elements();
 }
